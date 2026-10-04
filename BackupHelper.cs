@@ -87,34 +87,40 @@ namespace BackupHelper
             _lblHint = MakeLabel("勾选需要备份的子文件夹（可逐级展开选择）", 546, 97, 342);
 
             // ---------------- 子文件夹树 ----------------
-            _tree = new TreeView();
-            _tree.Location = new Point(12, 126);
-            _tree.Size = new Size(876, 340);
-            _tree.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            _tree.CheckBoxes = true;
-            _tree.HideSelection = false;
-            _tree.ShowLines = false;
-            _tree.ShowRootLines = true;
-            _tree.FullRowSelect = false;
-            _tree.PathSeparator = "\\";
+            _tree = new TreeView
+            {
+                Location = new Point(12, 126),
+                Size = new Size(876, 340),
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                CheckBoxes = true,
+                HideSelection = false,
+                ShowLines = false,
+                ShowRootLines = true,
+                FullRowSelect = false,
+                PathSeparator = "\\"
+            };
             _tree.AfterCheck += Tree_AfterCheck;
             _tree.BeforeExpand += Tree_BeforeExpand;
             Controls.Add(_tree);
 
             // ---------------- 底部：选项 ----------------
-            _chkOverwrite = new CheckBox();
-            _chkOverwrite.Text = "同名文件直接覆盖（默认：自动重命名并保留两份）";
-            _chkOverwrite.Location = new Point(12, 476);
-            _chkOverwrite.Size = new Size(440, 22);
-            _chkOverwrite.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            _chkOverwrite = new CheckBox
+            {
+                Text = "同名文件直接覆盖（默认：自动重命名并保留两份）",
+                Location = new Point(12, 476),
+                Size = new Size(440, 22),
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Left
+            };
             Controls.Add(_chkOverwrite);
 
-            _chkSkipIdentical = new CheckBox();
-            _chkSkipIdentical.Text = "跳过内容完全相同的文件（避免重复备份产生副本）";
-            _chkSkipIdentical.Location = new Point(460, 476);
-            _chkSkipIdentical.Size = new Size(430, 22);
-            _chkSkipIdentical.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            _chkSkipIdentical.Checked = true;
+            _chkSkipIdentical = new CheckBox
+            {
+                Text = "跳过内容完全相同的文件（避免重复备份产生副本）",
+                Location = new Point(460, 476),
+                Size = new Size(430, 22),
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Left,
+                Checked = true
+            };
             Controls.Add(_chkSkipIdentical);
 
             // ---------------- 底部：操作按钮 ----------------
@@ -130,24 +136,28 @@ namespace BackupHelper
             _lblStatus = MakeLabel("就绪。请先选择原文件夹与备份文件夹。", 300, 514, 588);
             _lblStatus.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 
-            _progress = new ProgressBar();
-            _progress.Location = new Point(12, 552);
-            _progress.Size = new Size(876, 18);
-            _progress.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            _progress.Minimum = 0;
-            _progress.Maximum = 100;
+            _progress = new ProgressBar
+            {
+                Location = new Point(12, 552),
+                Size = new Size(876, 18),
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                Minimum = 0,
+                Maximum = 100
+            };
             Controls.Add(_progress);
 
             // ---------------- 底部：日志 ----------------
-            _txtLog = new TextBox();
-            _txtLog.Location = new Point(12, 578);
-            _txtLog.Size = new Size(876, 130);
-            _txtLog.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            _txtLog.Multiline = true;
-            _txtLog.ReadOnly = true;
-            _txtLog.ScrollBars = ScrollBars.Vertical;
-            _txtLog.BackColor = Color.FromArgb(250, 250, 250);
-            _txtLog.Font = new Font(FontFamily.GenericMonospace, 9F);
+            _txtLog = new TextBox
+            {
+                Location = new Point(12, 578),
+                Size = new Size(876, 130),
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
+                Multiline = true,
+                ReadOnly = true,
+                ScrollBars = ScrollBars.Vertical,
+                BackColor = Color.FromArgb(250, 250, 250),
+                Font = new Font(FontFamily.GenericMonospace, 9F)
+            };
             Controls.Add(_txtLog);
 
             EnableDrop(_txtSource);
@@ -160,33 +170,39 @@ namespace BackupHelper
 
         private Label MakeLabel(string text, int x, int y, int width)
         {
-            Label label = new Label();
-            label.Text = text;
-            label.Location = new Point(x, y);
-            label.Size = new Size(width, 20);
-            label.TextAlign = ContentAlignment.MiddleLeft;
-            label.AutoEllipsis = true;   // 文字过长时显示省略号，不会压到输入框上
+            Label label = new Label
+            {
+                Text = text,
+                Location = new Point(x, y),
+                Size = new Size(width, 20),
+                TextAlign = ContentAlignment.MiddleLeft,
+                AutoEllipsis = true   // 文字过长时显示省略号，不会压到输入框上
+            };
             Controls.Add(label);         // 注意：必须加入窗体，否则标签不会显示
             return label;
         }
 
         private TextBox MakeTextBox(int x, int y, int width)
         {
-            TextBox box = new TextBox();
-            box.Location = new Point(x, y);
-            box.Size = new Size(width, 24);
-            box.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            TextBox box = new TextBox
+            {
+                Location = new Point(x, y),
+                Size = new Size(width, 24),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+            };
             Controls.Add(box);
             return box;
         }
 
         private Button MakeButton(string text, int x, int y, int width, int height)
         {
-            Button button = new Button();
-            button.Text = text;
-            button.Location = new Point(x, y);
-            button.Size = new Size(width, height);
-            button.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            Button button = new Button
+            {
+                Text = text,
+                Location = new Point(x, y),
+                Size = new Size(width, height),
+                Anchor = AnchorStyles.Top | AnchorStyles.Left
+            };
             Controls.Add(button);
             return button;
         }
@@ -194,14 +210,14 @@ namespace BackupHelper
         private void EnableDrop(TextBox box)
         {
             box.AllowDrop = true;
-            box.DragEnter += delegate(object s, DragEventArgs e)
+            box.DragEnter += delegate (object s, DragEventArgs e)
             {
                 if (e.Data != null && e.Data.GetDataPresent(DataFormats.FileDrop))
                     e.Effect = DragDropEffects.Copy;
                 else
                     e.Effect = DragDropEffects.None;
             };
-            box.DragDrop += delegate(object s, DragEventArgs e)
+            box.DragDrop += delegate (object s, DragEventArgs e)
             {
                 if (e.Data == null || !e.Data.GetDataPresent(DataFormats.FileDrop)) return;
                 string[] items = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -264,14 +280,16 @@ namespace BackupHelper
             catch (Exception ex)
             {
                 AppendLog("无法读取文件夹（已跳过）：" + dir + " -> " + ex.Message);
-                return new string[0];
+                return [];
             }
         }
 
         private static TreeNode CreateNode(string path)
         {
-            TreeNode node = new TreeNode(Path.GetFileName(path));
-            node.Tag = path;
+            TreeNode node = new TreeNode(Path.GetFileName(path))
+            {
+                Tag = path
+            };
             node.Nodes.Add(new TreeNode(string.Empty));   // 占位，保证显示展开箭头
             return node;
         }
@@ -346,18 +364,16 @@ namespace BackupHelper
 
         private void BrowseFolder(TextBox target, string description)
         {
-            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
-            {
-                dialog.Description = description;
-                dialog.ShowNewFolderButton = true;
-                string current = target.Text.Trim();
-                if (current.Length > 0 && Directory.Exists(current)) dialog.SelectedPath = current;
+            using FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = description;
+            dialog.ShowNewFolderButton = true;
+            string current = target.Text.Trim();
+            if (current.Length > 0 && Directory.Exists(current)) dialog.SelectedPath = current;
 
-                if (dialog.ShowDialog(this) == DialogResult.OK)
-                {
-                    target.Text = dialog.SelectedPath;
-                    if (target == _txtSource) LoadFolders();
-                }
+            if (dialog.ShowDialog(this) == DialogResult.OK)
+            {
+                target.Text = dialog.SelectedPath;
+                if (target == _txtSource) LoadFolders();
             }
         }
 
@@ -414,7 +430,7 @@ namespace BackupHelper
         {
             if (_running)
             {
-                if (_engine != null) _engine.Cancel();
+                _engine?.Cancel();
                 _lblStatus.Text = "正在取消，请稍候...";
                 _btnBackup.Enabled = false;
                 return;
@@ -458,9 +474,11 @@ namespace BackupHelper
                 return;
             }
 
-            BackupOptions options = new BackupOptions();
-            options.OverwriteExisting = _chkOverwrite.Checked;
-            options.SkipIdenticalFiles = _chkSkipIdentical.Checked;
+            BackupOptions options = new BackupOptions
+            {
+                OverwriteExisting = _chkOverwrite.Checked,
+                SkipIdenticalFiles = _chkSkipIdentical.Checked
+            };
             _engine = new BackupEngine(options, LogFromWorker, ProgressFromWorker);
 
             AppendLog("----------------------------------------------");
@@ -471,8 +489,10 @@ namespace BackupHelper
 
             _running = true;
             SetBusy(true);
-            Thread worker = new Thread(delegate() { RunBackup(src, bak, selection); });
-            worker.IsBackground = true;
+            Thread worker = new Thread(delegate () { RunBackup(src, bak, selection); })
+            {
+                IsBackground = true
+            };
             worker.Start();
         }
 
@@ -541,7 +561,7 @@ namespace BackupHelper
                     e.Cancel = true;
                     return;
                 }
-                if (_engine != null) _engine.Cancel();
+                _engine?.Cancel();
             }
             base.OnFormClosing(e);
         }

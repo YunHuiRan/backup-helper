@@ -49,23 +49,16 @@ namespace BackupHelper
     }
 
     /// <summary>备份执行器</summary>
-    public class BackupEngine
+    public class BackupEngine(BackupOptions options, Action<string> log, Action<long, long> progress)
     {
-        private readonly BackupOptions _opt;
-        private readonly Action<string> _log;
-        private readonly Action<long, long> _progress;   // (已处理文件数, 总文件数)
+        private readonly BackupOptions _opt = options ?? new BackupOptions();
+        private readonly Action<string> _log = log;
+        private readonly Action<long, long> _progress = progress;   // (已处理文件数, 总文件数)
         private readonly BackupResult _result = new BackupResult();
         private volatile bool _cancel;
 
         private string _sourceRoot = string.Empty;
         private string _backupRoot = string.Empty;
-
-        public BackupEngine(BackupOptions options, Action<string> log, Action<long, long> progress)
-        {
-            _opt = options ?? new BackupOptions();
-            _log = log;
-            _progress = progress;
-        }
 
         /// <summary>备份结果（Run 结束后有效，也可在运行中读取）</summary>
         public BackupResult Result { get { return _result; } }

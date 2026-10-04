@@ -145,10 +145,12 @@ namespace BackupHelper
 
         private static BackupResult RunBackup(string srcRoot, string bakRoot, string[] folders, bool overwrite, bool skipIdentical)
         {
-            BackupOptions opt = new BackupOptions();
-            opt.OverwriteExisting = overwrite;
-            opt.SkipIdenticalFiles = skipIdentical;
-            BackupEngine engine = new BackupEngine(opt, delegate(string m) { Console.WriteLine("      " + m); }, null);
+            BackupOptions opt = new BackupOptions
+            {
+                OverwriteExisting = overwrite,
+                SkipIdenticalFiles = skipIdentical
+            };
+            BackupEngine engine = new BackupEngine(opt, delegate (string m) { Console.WriteLine("      " + m); }, null);
             return engine.Run(srcRoot, bakRoot, folders);
         }
 

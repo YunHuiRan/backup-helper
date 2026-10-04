@@ -223,7 +223,7 @@ namespace BackupHelper
             {
                 _result.Errors++;
                 Log("无法读取文件夹（已跳过）：" + dir + "  ->  " + ex.Message);
-                return new string[0];
+                return [];
             }
         }
 
@@ -238,7 +238,7 @@ namespace BackupHelper
             {
                 _result.Errors++;
                 Log("无法读取子文件夹（已跳过）：" + dir + "  ->  " + ex.Message);
-                return new string[0];
+                return [];
             }
 
             if (!_opt.SkipReparsePoints) return dirs;
